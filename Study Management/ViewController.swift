@@ -7,8 +7,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var textfield: UITextField!
-    
-    @IBOutlet weak var label2: UILabel!
+    @IBOutlet weak var textview: UITextView!
     
     var currentDate: Date? = nil
     
@@ -27,14 +26,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
             //最後にタップした日付けが使える関数
             UserDefaults.standard.set(textfield.text!, forKey: date.description)
             
-            let str = UserDefaults.standard.string(forKey: date.description )
-            
-            self.label.text = str
-            
-            self.label2.text = date.description
-            //            func SaveData(str: String){
-            //                UserDefaults.standard.set(str, forKey: date.description)
-            //            }
         }
         
         
@@ -129,6 +120,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         
         self.currentDate = date
         
+        let str = UserDefaults.standard.string(forKey: date.description )
+        
+        self.textfield.text = str
+        
+        //self.textfield.text = date.description
         //    @IBAction func loadDateButtonTapped(_ sender: UIButton)
         //ボタンを押したらという関数
         
