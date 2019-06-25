@@ -17,28 +17,38 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         // デリゲートの設定
         self.calendar.dataSource = self
         self.calendar.delegate = self
+        //textfield.delegate = self
     }
     
     @IBAction func textDidEndOnExit(_ sender: UITextField) {
         
-        
         hoge(self.currentDate)
-        
         if let date = self.currentDate {
+            //最後にタップした日付けが使える関数
+            UserDefaults.standard.set(textfield.text!, forKey: date.description)
             
+            let str = UserDefaults.standard.string(forKey: date.description )
+            
+            self.label.text = str
+            
+            self.label2.text = date.description
+            //            func SaveData(str: String){
+            //                UserDefaults.standard.set(str, forKey: date.description)
+            //            }
         }
         
         
-        print(sender.text)
+        //print(sender.text)
+        //senderは送り主であるオブジェクトのこと今回はテキストフィールド　selfに対するsender
     }
     
     func hoge(_ date: Date?) {
-        
+        //これが何かわからない
     }
     
-//    @IBAction func touch(_ sender: Any) {
+    //    @IBAction func touch(_ sender: Any) {
     
-//    }
+    //    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -83,7 +93,7 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     // 土日や祝日の日の文字色を変える
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-
+        
         //祝日判定をする（祝日は赤色で表示する）
         if self.judgeHoliday(date){
             return UIColor.red
@@ -103,26 +113,24 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        UserDefaults.standard.set("this is a test", forKey: date.description + "text")
-        UserDefaults.standard.set(date,             forKey: date.description + "date")
+        //UserDefaults.standard.set("this is a test", forKey: date.description + "text")
         
-        let str = UserDefaults.standard.string(forKey: date.description + "text")
         
-        self.label.text = str
+        //let str = UserDefaults.standard.string(forKey: date.description + "text")
         
-        let anyDate = UserDefaults.standard.object(forKey: date.description + "date")
+        //self.label.text = str
         
-        if let date = anyDate as? Date {
-            self.label2.text = date.description
-            //let str = UserDefaults.standard.string(forKey: date.description)
-        }
+        //let anyDate = UserDefaults.standard.object(forKey: date.description + "date")
+        
+        //        if let date = anyDate as? Date {
+        //            self.label2.text = date.description
+        //            //let str = UserDefaults.standard.string(forKey: date.description)
+        //        }
         
         self.currentDate = date
-    
-//    @IBAction func loadDateButtonTapped(_ sender: UIButton)
-        //ボタンを押したらという関数
-
         
+        //    @IBAction func loadDateButtonTapped(_ sender: UIButton)
+        //ボタンを押したらという関数
         
     }
 }
