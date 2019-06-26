@@ -2,39 +2,51 @@ import UIKit
 import FSCalendar
 import CalculateCalendarLogic
 
-class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance{
+class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance,UITextViewDelegate{
     
     @IBOutlet weak var calendar: FSCalendar!
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var textfield: UITextField!
     @IBOutlet weak var textview: UITextView!
     
+    var delegate: UITextViewDelegate!
+    
+    @IBOutlet weak var button: UIButton!
+    
     var currentDate: Date? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // デリゲートの設定
         self.calendar.dataSource = self
         self.calendar.delegate = self
-        //textfield.delegate = self
+        self.textview.delegate = self
     }
     
-    @IBAction func textDidEndOnExit(_ sender: UITextField) {
-        
-        hoge(self.currentDate)
-        if let date = self.currentDate {
-            //最後にタップした日付けが使える関数
-            UserDefaults.standard.set(textfield.text!, forKey: date.description)
-            
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.textview.frame = CGRect(x: 0.0, y: -20.0, width: 375.0, height: 237.0)
+        if let date = self.currentDate{
+            UserDefaults.standard.set(textview.text!, forKey:date.description)
         }
-        
-        
-        //print(sender.text)
-        //senderは送り主であるオブジェクトのこと今回はテキストフィールド　selfに対するsender
     }
     
-    func hoge(_ date: Date?) {
-        //これが何かわからない
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        self.textview.frame = CGRect(x: 0.0, y: -100.0, width: 375.0, height: 237.0)
+
+//        let button = UIButton()//この場所を変える
+//        button.setTitle("保存", for: .normal)
+//        button.tintColor = UIColor.black
+//        button.backgroundColor = UIColor.gray
+//        button.frame = CGRect(x: 365.0, y: 435.0, width: 50.0, height: 30.0)
+//        self.view.addSubview(button)
+//        button.layer.cornerRadius = 10
+        button.isHidden = false
+        
+        if text == "\n" {
+            button.isHidden = true
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
     //    @IBAction func touch(_ sender: Any) {
@@ -122,11 +134,11 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         
         let str = UserDefaults.standard.string(forKey: date.description )
         
-        self.textfield.text = str
+        self.textview.text = str
         
-        //self.textfield.text = date.description
-        //    @IBAction func loadDateButtonTapped(_ sender: UIButton)
-        //ボタンを押したらという関数
+        //print(self.textview.frame) 座標表示
+        
+        
         
     }
 }
