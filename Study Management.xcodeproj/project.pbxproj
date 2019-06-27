@@ -20,6 +20,7 @@
 		ECFAFA9322B9FF28007F3EA8 /* Study_ManagementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFAFA9222B9FF28007F3EA8 /* Study_ManagementUITests.swift */; };
 		ECFAFAA022BA07B9007F3EA8 /* CalculateCalendarLogic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFAFAA222BA07B9007F3EA8 /* CalculateCalendarLogic.framework */; };
 		ECFAFAA122BA07B9007F3EA8 /* FSCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFAFAA322BA07B9007F3EA8 /* FSCalendar.framework */; };
+		ECFB222F22C4A6E9006AC014 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECFB222E22C4A6E9006AC014 /* Photos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		ECFAFA9422B9FF28007F3EA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ECFAFAA222BA07B9007F3EA8 /* CalculateCalendarLogic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = CalculateCalendarLogic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECFAFAA322BA07B9007F3EA8 /* FSCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FSCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFB222E22C4A6E9006AC014 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECFB222F22C4A6E9006AC014 /* Photos.framework in Frameworks */,
 				ECFAFAA022BA07B9007F3EA8 /* CalculateCalendarLogic.framework in Frameworks */,
 				ECFAFAA122BA07B9007F3EA8 /* FSCalendar.framework in Frameworks */,
 				76A65C2B069D9E3671CA8E36 /* Pods_Study_Management.framework in Frameworks */,
@@ -113,6 +116,7 @@
 		77547005945DF0A5692822A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ECFB222E22C4A6E9006AC014 /* Photos.framework */,
 				ECFAFAA222BA07B9007F3EA8 /* CalculateCalendarLogic.framework */,
 				ECFAFAA322BA07B9007F3EA8 /* FSCalendar.framework */,
 				D921ED128A8F9F4D337DB1D1 /* Pods_Study_Management.framework */,

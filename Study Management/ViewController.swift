@@ -1,57 +1,85 @@
 import UIKit
 import FSCalendar
 import CalculateCalendarLogic
+import Photos
 
 class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,FSCalendarDelegateAppearance,UITextViewDelegate{
     
     @IBOutlet weak var calendar: FSCalendar!
     @IBOutlet weak var textview: UITextView!
+    @IBOutlet weak var storagebutton: UIButton!
+    
+    @IBOutlet weak var imageView: UIImageView!
     
     var delegate: UITextViewDelegate!
-    
-    @IBOutlet weak var button: UIButton!
-    
+    var photoAssets = [PHAsset]()
+
     var currentDate: Date? = nil
+    var responder = false
+
     
-    
+    @IBAction func StorageButton(_ sender: Any) {
+        if let date = self.currentDate{
+            UserDefaults.standard.set(textview.text!, forKey:date.description)
+        }
+        
+        storagebutton.isHidden = true
+        self.responder = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // デリゲートの設定
         self.calendar.dataSource = self
         self.calendar.delegate = self
         self.textview.delegate = self
+        
+//        let fetchOptions = PHFetchOptions()
+////        fetchOptions.predicate = NSPredicate(format: "title = %@", "Camera Roll")
+//        let collection = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: fetchOptions)
+//        if collection.firstObject != nil {
+//            // 取得成功(->collection.firstObject)
+//            print("success")
+//            if let assets: PHFetchResult = PHAsset.fetchAssets(with: .image, options: nil) {
+//                assets.enumerateObjects({ (asset, index, stop) in
+//                    print(asset)
+//
+//                    let manager = PHImageManager.default()
+//                    manager.requestImage(for: asset, targetSize: self.imageView.frame.size, contentMode: .aspectFill, options: nil, resultHandler: { (image, info) in
+//                            self.imageView.image = image
+//                    })
+//                })
+//            }
+//
+//        } else {
+//            // 取得失敗
+//            print("fail")
+//        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         self.textview.frame = CGRect(x: 0.0, y: -20.0, width: 375.0, height: 237.0)
-        if let date = self.currentDate{
-            UserDefaults.standard.set(textview.text!, forKey:date.description)
-        }
+        
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        self.textview.frame = CGRect(x: 0.0, y: -100.0, width: 375.0, height: 237.0)
+        self.textview.frame = CGRect(x: 0.0, y: -100.0, width: 275.0, height: 237.0)
 
-//        let button = UIButton()//この場所を変える
-//        button.setTitle("保存", for: .normal)
-//        button.tintColor = UIColor.black
-//        button.backgroundColor = UIColor.gray
-//        button.frame = CGRect(x: 365.0, y: 435.0, width: 50.0, height: 30.0)
-//        self.view.addSubview(button)
-//        button.layer.cornerRadius = 10
-        button.isHidden = false
+        storagebutton.isHidden = false
+        self.view.bringSubview(toFront: storagebutton)
         
-        if text == "\n" {
-            button.isHidden = true
+        if self.responder == true
+        {
             textView.resignFirstResponder()
-            return false
+            self.responder = false
         }
+//        if text == "\n" {
+//            button.isHidden = true
+//            textView.resignFirstResponder()
+//            return false
+//        }
         return true
     }
     
-    //    @IBAction func touch(_ sender: Any) {
-    
-    //    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -116,20 +144,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         
-        //UserDefaults.standard.set("this is a test", forKey: date.description + "text")
-        
-        
-        //let str = UserDefaults.standard.string(forKey: date.description + "text")
-        
-        //self.label.text = str
-        
-        //let anyDate = UserDefaults.standard.object(forKey: date.description + "date")
-        
-        //        if let date = anyDate as? Date {
-        //            self.label2.text = date.description
-        //            //let str = UserDefaults.standard.string(forKey: date.description)
-        //        }
-        
         self.currentDate = date
         
         let str = UserDefaults.standard.string(forKey: date.description )
@@ -137,8 +151,6 @@ class ViewController: UIViewController,FSCalendarDelegate,FSCalendarDataSource,F
         self.textview.text = str
         
         //print(self.textview.frame) 座標表示
-        
-        
         
     }
 }
